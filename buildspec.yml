@@ -1,10 +1,17 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    GITHUB_TOKEN: "dan-web-github-token" 
+
 phases:
   install:
     commands:
       - echo "Installing Git..."
       - yum install -y git || apt-get install -y git  
+      - echo "Git Login"
+      - git config --global credential.helper '!f() { echo username=x-access-token; echo password=$GITHUB_TOKEN; }; f'
+
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
