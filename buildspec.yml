@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com
+      - echo "Preparing to build Docker image..."
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - docker build -t dan-web .
+      - docker tag dan-web:latest $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/dan-web:latest
+  post_build:
+    commands:
+      - echo "Pushing Docker image to Amazon ECR..."
+      - docker push $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/dan-web:latest
+artifacts:
+  files:
+    - '**/*'
