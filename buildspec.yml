@@ -5,6 +5,15 @@ env:
     GITHUB_TOKEN: "dan-web-github-token" 
 
 phases:
+  install:
+    commands:
+      - echo "Installing Git..."
+      - yum install -y dokcer
+      - systemctl start docker 
+      - systemctl enable docker
+      - echo "Docker ver."
+      - docker --verion
+
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
