@@ -7,8 +7,6 @@ env:
 phases:
   install:
     commands:
-      - echo "Installing Git..."
-      - yum install -y git || apt-get install -y git  
       - echo "Git Login"
       - git config --global credential.helper '!f() { echo username=x-access-token; echo password=$GITHUB_TOKEN; }; f'
 
