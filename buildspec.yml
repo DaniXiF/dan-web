@@ -8,7 +8,7 @@ phases:
   install:
     commands:
       - echo "Installing Git..."
-      - yum install -y dokcer
+      - sudo yum install -y dokcer
       - systemctl start docker 
       - systemctl enable docker
       - echo "Docker ver."
