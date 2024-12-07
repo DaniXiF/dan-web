@@ -1,6 +1,10 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - echo "Installing Git..."
+      - yum install -y git || apt-get install -y git  
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
